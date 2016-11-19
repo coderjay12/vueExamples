@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Managing Duplicate State</title>
+</head>
+<body>
+	<div id = "managingEvents">
+		<notification>we are tryin go to do the test</notification>
+	</div>
+
+	 <script src="vue-1.0.8.js"></script>
+
+	 <script>
+
+
+	 new Vue({
+	 	el: '#managingEvents',
+
+	 	
+
+	 	components: {
+	 		notification: {
+	 			data:function(){
+			 		return { 
+			 			username: "jyoti"
+			 		}
+			 	},
+			 	
+	 			template: "<i>{{ username }} <slot></slot></i>"
+	 		}
+	 	}
+	 });
+	 </script>
+</body>
+</html>

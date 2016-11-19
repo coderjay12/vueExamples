@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Using Props</title>
+</head>
+<body>
+	<div id="test-app">
+		<test-post :allblogs = "allblogsdetails"></test-post>
+		<!-- here the above must be same with the one iside of the v-for -->
+	</div>
+
+	<template id ="test-template">
+		<h2>Here from test template</h2>
+		<ul>
+			<li v-for= "singleblog in allblogs">
+				{{ check() }}
+				{{ singleblog .author }}
+			</li>
+		</ul>
+	</template>
+
+	<!-- <script src= "vue-1.0.8.js"></script> -->
+	<script src= "vue-1.0.8.js"></script>
+
+	<script>
+		Vue.component('test-post',{
+			template:"#test-template",
+			props: ['allblogs'],  
+			computed: 
+			{
+				check: function(singleblog)
+				{
+					console.log("here");
+				}
+			}
+		});
+
+		new Vue({
+			el : "#test-app",
+			data: {
+				allblogsdetails:[
+					{'author':'test author', "excerpt" : "test excerpt", "content" : "test content"},
+					{'author':'2test author', "excerpt" : "2test excerpt", "content" : "2test content"}
+
+				]
+			}
+		});
+	</script>
+</body>
+</html>

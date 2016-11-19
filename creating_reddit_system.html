@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Creating A Reddit System</title>
+		<link rel="stylesheet" href="bootstrap.css">
+	</head>
+	<body>
+		<div id="redditapp">
+			<input type="text" placeholder="type your post here" v-model= "redditpost" @keyup.enter= "postReddit"><p><p>
+			<button @click= "postReddit">submit</button>
+		</div>
+		<template id = "reddit-template">
+			<div class="container">
+				<div class="list-group">
+					<li>
+						<i class = "glyphicon glyphicon-chevron-up" @click = "upvote"></i>
+						{{ redditpost.title }}
+						{{ vote }}
+						<i class = "glyphicon glyphicon-chevron-down" @click = "downvote"></i>
+					</li>
+				</div>
+			</div>
+		</template>
+		<script src="vue-1.0.8.js"></script>
+		<script>
+			Vue.component("reddit-component",{
+				template: "#reddit-template",
+				props: ['redditpost'],
+				data: function()
+				{
+					return{
+						upvoted:false,
+						downvoted:false
+					};
+				},
+				methods:
+				{
+					upvote:function()
+					{
+						this.upvoted = !this.upvoted;
+						this.downvoted = false ;
+					},
+					downvote: function()
+					{
+						this.downvoted = !this.downvoted;
+						this.upvoted = false ;
+					}
+				},
+				computed:
+				{
+					vote: function()
+					{
+						if(this.upvoted)
+						{
+							return this.redditpost.votes+1;
+						}
+						else if(this.downvoted)
+						{
+							return this.redditpost.votes-1;
+						}
+						else
+						{
+							return this.redditpost.votes;
+						}
+					}
+				}
+			});
+			new Vue({
+				el: "#redditapp",
+				data:
+				{
+					redditposts: [
+									{ title:"first post",votes: 10 },
+									{ title:"second post",votes: 20 },
+							]
+				},
+				methods:
+				{
+					postReddit: function()
+					{
+						this.redditposts.push({
+							title: this.redditpost,
+							votes: 0
+						})
+						this.redditpost = "";
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

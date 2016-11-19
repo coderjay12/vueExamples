@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> 
+	
+	</title>
+</head>
+<body>
+	<!-- view -->
+	<div id = "app">
+		{{ skills }}
+		<input type ="text" v-model= "points">
+	</div>
+		<!-- <button type ="submit" @click="count += 1">Counter {{ count }} </button> -->
+
+
+
+	<template id = "test-template">
+		<h2>{{ subject }}</h2>
+		<br>
+		<button type = "submit" @click="count += 1">Number Of Counts {{ count }}</button>
+	</template>
+		<script type="text/javascript" src = "vue.js"></script>
+		<script>
+			new Vue({
+				el: "#app",
+				data: {
+					points : 50
+				},
+				computed: {
+					skills:function()
+					{
+						if(this.points <= 50){
+
+							return "beginner";
+						}
+
+						return "Advanced"
+					}
+				}
+			})
+		</script>
+</body>
+
+</html>

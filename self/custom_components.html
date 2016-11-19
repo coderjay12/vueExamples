@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style>
+		.completed{
+			text-decoration: line-through;
+		}
+	</style>
+</head>
+<body>
+	<h2>Custom Components</h2>
+	<div id="main-app">
+		<my-component :component_lists='tasks'>
+		</my-component>
+	</div>
+
+	<template id='my-component-template'>
+		<h2>Hello from the component template</h2>
+			<ul :class = "{'completed' : component_list.completed}" v-for='component_list in component_lists'  	    @click='component_list.completed= !component_list.completed'>
+				<li>
+					{{ component_list.name  }}
+				</li>
+			</ul>
+	</template>
+
+	 <script src = '../vue.js'></script>
+	 <script>
+	 		Vue.component('my-component', {
+	 			template: '#my-component-template',
+	 			props: ['component_lists']
+	 		});
+	 		new Vue({
+	 			el: "#main-app",
+	 			data: {
+	 				tasks:[
+	 					{name: "First Task", completed: true},
+	 					{name: "Second Task", completed: false},
+	 					{name: "Third Task", completed: false}
+	 				]
+	 			}
+	 		})
+	 </script>
+	
+</body>
+
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Managing Custom Events</title>
+</head>
+<body>
+	<div id="test-div">
+		<div id = "testdirective" v-testdirective:hello.a.b = "msg"></div>
+	</div>
+
+	 <script src="vue-1.0.8.js"></script>
+
+	 <script>
+	 Vue.directive("testdirective",{
+	 	bind: function(){//called only once when the directive is first bound to the element
+	 	},
+	 	update: function(value){//called immediately after the bind is called
+	 		this.el.innerHTML =
+	 		 "<p>this.name "+this.name +
+	 		 "<p>this.vm "+this.vm +
+	 		 "<p>this.arg "+this.arg +
+	 		 "<p>this.expression "+ this.expression +
+	 		 "<p>this.params  "+this.params + 
+	 		 "<p>this.value " + value
+	 		;
+	 	},
+	 	unbind: function(){
+	 		console.log("here from unbind");
+	 	}
+	 })
+
+	 var testdirective = new Vue({
+	 	el : "#test-div",
+	 	data : {
+	 		msg: "a simple hello "
+	 	}
+	 });
+	 </script>
+</body>
+</html>

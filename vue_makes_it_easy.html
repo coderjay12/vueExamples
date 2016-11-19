@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Working and rendering with lists</title>
+	<style>
+		.completed{
+			text-decoration: line-through;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+ 		<tasks-component :list= "tasks">
+ 			
+ 		</tasks-component>
+
+	</div>
+
+	<template id= "tasks-template">
+		 Remaining Tasks
+<!-- 		 <span v-show = "remainingTasks">
+		 	({{ remainingTasks }})
+		 </span> -->
+		 <ul v-show="list.length">
+			<li v-show="list.length" :class= "{'completed' : newTaskName.completed }" 
+	 		v-for="newTaskName in list"
+			@click="newTaskName.completed = ! newTaskName.completed"
+	 		>
+			<!-- @click="updateStatus(task)" -->
+	 			{{ newTaskName.body }}
+	 			<strong @click="deleteTask(newTaskName)">X</strong>
+	  		</li>
+	  		<br>
+	 			<button @click="clearCompleted">Clear Completed</button>
+		</ul>
+		<p v-else>No tasks created</p>
+	</template>
+	<script type="text/javascript" src="vue-1.0.8.js"></script>
+	<script type="text/javascript" src = "vue_makes_it_easy.js"></script>
+
+</body>
+</html>		

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> 
+	
+	</title>
+</head>
+<body>
+	<!-- view -->
+	<div id = "app">
+		<form action ="done.html" @submit.prevent="handleIt">
+		<!-- prevent is called event modifier --> 
+			<button>Submit</button>		
+		</form>
+
+		<br><br>
+		<button type ="submit" @click="count += 1">Counter {{ count }} </button>
+		<!-- above can be replaced with 
+			<button type ="submit" @click="updateCounter">Counter {{ count }} </button>
+		 -->
+	</div>
+		<script type="text/javascript" src = "vue.js"></script>
+		<script>
+			// view model
+			new Vue ({
+				el: "#app",
+				data: {
+					count: 0, 
+					message :""
+				},
+				methods :{
+					handleIt:function(){
+						alert("handled");
+					},
+
+					updateCounter:function()
+					{
+						this.count += 1;
+					}
+				}
+			});		
+		</script>
+</body>
+
+</html>

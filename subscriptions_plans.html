@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> </title>
+</head>
+<body>
+	<div id = "app">
+	<!-- this displays for the number of plans sth like an array -->
+
+		{{ plan | json }}
+		<div v-for= "plan in plans">
+			<plan :plan = "plan" :active.sync = "active"><plan>
+		</div>
+	</div>
+	<!-- secondldy the template was definced -->
+	<template id = "plan-template">
+		<div>
+		{{ plan | json }}
+		<!-- {{ sdfg | json }} -->
+			<span>{{ plan.name }}</span>
+			<span>{{ plan.price }}/month</span>
+			<button @click= "setActivePlan">Upgrade</button>
+		</div>
+	</template>
+
+		<!-- <script type="text/javascript" src = "https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script> -->
+		<script type="text/javascript" src = "vue.js"></script>
+		<script>
+			new Vue({
+				el: "#app",
+				data: {
+					plans : [
+					// step 1 first the plans were added
+						{ name : "Enterpirse" , price : "100" },
+						{ name : "Pro" , price : "75" },
+						{ name : "Personal" , price : "50" },
+						{ name : "Free" , price : "25" }
+						],
+					active: {}
+				},
+				// the template was bined to the components plan
+				components :{
+						plan: {
+							template: "#plan-template",
+							props: ["plan", "active"],
+							methods: {
+								setActivePlan: function(){
+									console.log(this.plan);
+									this.active  = this.plan;
+								}
+							}
+						}
+				}
+			})
+		</script>
+</body>
+</html>

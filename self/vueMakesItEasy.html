@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.completed{
+			text-decoration: line-through;
+		}
+	</style>
+</head>
+<body>
+	<h2>Working With Vue Lists</h2>
+
+	<div id="main-app">
+		<list-component :lists='todos' >
+		</list-component>
+	</div>
+
+	<template id="listTemplate">
+		<ul v-show='lists.length'>
+
+			<li :class="{ 'completed':list.completed }" v-for='list in lists' @click="list.completed = !list.completed">{{ list.task }} <span @click='deleteTask(list)'><b>X</b><span></li>
+
+			<button @click='clearCompleted()'>Clear </button>
+		</ul>
+
+		<ul v-else>
+			No Tasks at the moment
+		</ul>
+	</template>
+
+	 <script src = '../vue.js'></script>
+	 <script>
+	 	Vue.component('list-component',{ 
+	 		props:['lists'],
+	 		template:"#listTemplate",
+	 		computed:{
+
+	 		},
+	 		methods:{
+	 			deleteTask:function(task)
+	 			{
+	 				this.lists.$remove(task);
+	 			},
+
+	 			getCompleted:function(list)
+	 			{
+	 				return list.completed;
+	 			},
+	 			getInProgress:function(testlist)
+	 			{
+	 				return !this.getCompleted(testlist);
+	 			},
+	 			clearCompleted:function(list)
+	 			{
+	 				this.lists = this.lists.filter(this.getInProgress);
+	 			}
+	 		}
+
+	 	});
+	 	new Vue({
+	 		el: "#main-app",
+	 		data: {
+	 			todos:[
+	 				{ task:"Be A Hero In Laravel",completed:true },
+	 				{ task:"Be A Hero In Vue JS",completed:false },
+	 				{ task:"Be A Hero In Ruby",completed:true },
+	 				{ task:"Be A Hero In Python",completed:false },
+	 				{ task:"Be A Hero In Node Js",completed:true },
+	 			]
+	 		}
+	 	})
+	 </script>
+</body>
+</html>

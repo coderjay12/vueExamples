@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Working and rendering with lists</title>
+
+	<style>
+		.completed{
+			text-decoration: line-through;
+		}
+	</style>
+</head>
+<body>
+
+
+	<div id="app">
+ 		<ul :class= "{'completed' : task.completed }" 
+ 		v-for="task in tasks"
+		@click="task.completed = ! task.completed"
+ 		>
+		<!-- @click="updateStatus(task)" -->
+
+ 			{{ task.body }}
+ 		</ul>
+	</div>
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.8/vue.js"></script>
+	<script type="text/javascript" src = "working_and_rendering_with_list.js">
+
+	</script>
+
+</body>
+</html>		

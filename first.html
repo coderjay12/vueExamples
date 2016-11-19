@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> 
+	
+	</title>
+</head>
+<body>
+	<!-- view -->
+	<div id = "app">
+	<form>
+		<span class = "error" v-show = "!message">
+			Please input some texts
+		</span>
+		<br><br>
+		<textarea v-model = "message">
+			
+		</textarea><br><br>
+		<button v-if= "message">submit</button>
+		
+		</form>
+		<pre>
+			{{ $data | json }}
+		</pre>
+	</div>
+		<script type="text/javascript" src = "vue.js"></script>
+		<script>
+			// view model
+			new Vue ({
+				el: "#app",
+				data: {
+					message :""
+				}
+			})	;		
+		</script>
+</body>
+
+</html>
