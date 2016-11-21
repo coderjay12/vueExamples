@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="../bootstrap.css">
+	<style type="text/css">
+		.selected{
+			text-decoration: line-through;
+		}
+	</style>
+</head>
+<center>
+<body>
+	<div id='services'>
+		<service-component :componentvalues ='serviceLists'>
+		</service-component>
+
+		<h4>Input Your Search Query</h4>
+		<ul>
+			<div class="form-group col-sm-3" >
+		    <input type="text" class="form-control" id="usr" v-model='searchQuery'>
+
+			<li v-for='servicelist in getSearchResult'>{{ servicelist.name }}</li>
+		</ul>
+		</div>
+	</div>
+
+	<template id='service-template'>
+	<h3>Services</h3>
+			<ul class='list-group'>
+
+			<li :class="{ 'completed':list.completed }" v-for='list in lists' @click="list.completed = !list.completed">{{ list.task }} <span @click='deleteTask(list)'><b>X</b><span></li>
+
+
+			<li v-for='componentvalue in componentvalues' :class="{'selected':componentvalue.selected}" @click="componentvalue.selected = !componentvalue.selected">{{ componentvalue.name }}  {{ componentvalue.price }}</li>
+		</ul>
+		<li class='list-group-item'>Total {{ getTotal(componentvalues) | total-filter }}</li>
+
+	</template>
+	<script type="text/javascript" src = '../vue.js'></script>	
+	<script type="text/javascript">
+
+		Vue.filter('total-filter', function(total){
+			return '$' + total.toFixed(2);
+		});
+
+		Vue.component('service-component',{
+			props:['componentvalues'],
+			template:'#service-template',
+			computed:{
+
+			},
+			methods:{
+				getTotal:function(list)
+				{
+					var total = 0;
+					list.forEach(function(list){
+						if(list.selected == true)
+							total += list.price
+					});
+
+					return total;
+					// console.log(list.length)
+					// return this.list.filter(list.completed);
+				}
+			}
+		});
+
+		new Vue({
+			el:"#services",
+			data:{
+				serviceLists:[
+					{ name:"Bsc Csit",price:200.34343,selected:false },
+					{ name:"B It",price:399,selected:false },
+					{ name:"B Pharm",price:400,selected:false },
+					{ name:"Bsc Nursing",price:500,selected:false }
+				],
+				searchQuery:""
+			},
+			computed:{
+				getSearchResult:function()
+				{
+					// console.log(this.searchQuery);
+					serviceArray = this.serviceLists;
+					searchQuery = this.searchQuery;
+
+					if(!searchQuery)
+						return this.serviceLists;
+
+					serviceArray = serviceArray.filter(function(item){
+						console.log(item.title);
+					})
+
+				// serviceArray = articles_array.filter(function(item){
+    //             if(item.title.toLowerCase().indexOf(searchString) !== -1){
+    //                 return item;
+	   //              }
+	   //          })
+
+
+
+				}
+			}
+
+
+
+
+		})
+	</script>	
+</body>
+</html>
