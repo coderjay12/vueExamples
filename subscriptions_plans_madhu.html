@@ -4,8 +4,6 @@
 	<title>Step6 vue js</title>
 </head>
 <body>
-
-
 	<div id="app">
 		<div v-for="plan in plans">
 			<plan :plan="plan" :active.sync="active" inline-template>
@@ -27,7 +25,6 @@
 			</plan>
 		</div>
 	</div>
-
 	<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/1.0.26/vue.js"></script> -->
 	<script type="text/javascript" src = "vue.js"></script>
 	<script type="text/javascript">
@@ -35,10 +32,10 @@
 			el: '#app',
 			data:{
 				plans:[
-					{name:'Enterprise',price:100},
-					{name:'Pro',price:50},
-					{name:'Personal',price:10},
-					{name:'Free',price:0}
+					{ name:'Enterprise',price:100 },
+					{ name:'Pro',price:50 },
+					{ name:'Personal',price:10 },
+					{ name:'Free',price:0 }
 				],
 				active:{}
 			},

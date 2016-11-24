@@ -15,6 +15,21 @@
 		<service-component :componentvalues ='serviceLists'>
 		</service-component>
 
+		<div class="col-sm-9">
+		<h4>Add To Services</h4>
+		<ul>
+			<div class="form-group col-sm-5" >
+		    <input type="text" class="form-control" v-model='newService.name'><p><br>
+		    <input type="text" class="form-control" v-model='newService.price'><p><br>
+		    <input type="text" class="form-control" v-model='newService.selected'><p><br>
+		    <button @click = 'addToService()'>Submit</button>
+		</ul>
+		</div>
+
+
+		<p>
+		
+		<div class="col-sm-9">
 		<h4>Input Your Search Query</h4>
 		<ul>
 			<div class="form-group col-sm-3" >
@@ -23,10 +38,12 @@
 			<li v-for='servicelist in getSearchResult'>{{ servicelist.name }}</li>
 		</ul>
 		</div>
+
+		</div>
 	</div>
 
 	<template id='service-template'>
-	<h3>Services</h3>
+		<h3>Services</h3>
 			<ul class='list-group'>
 
 			<li :class="{ 'completed':list.completed }" v-for='list in lists' @click="list.completed = !list.completed">{{ list.task }} <span @click='deleteTask(list)'><b>X</b><span></li>
@@ -60,8 +77,6 @@
 					});
 
 					return total;
-					// console.log(list.length)
-					// return this.list.filter(list.completed);
 				}
 			}
 		});
@@ -71,40 +86,39 @@
 			data:{
 				serviceLists:[
 					{ name:"Bsc Csit",price:200.34343,selected:false },
-					{ name:"B It",price:399,selected:false },
-					{ name:"B Pharm",price:400,selected:false },
-					{ name:"Bsc Nursing",price:500,selected:false }
+					{ name:"Information Technology",price:399,selected:false },
+					{ name:"Pharm",price:400,selected:false },
+					{ name:"MBBS",price:500,selected:false }
 				],
-				searchQuery:""
+				searchQuery:"",
+				newService: { name: '',price:'',selected:''}	
+			},
+			methods:{
+				addToService:function()
+				{
+					this.serviceList.push({name:newService.name,price:newService.price,selected:newService.selected})
+					this.newService = '';
+				}
 			},
 			computed:{
 				getSearchResult:function()
 				{
-					// console.log(this.searchQuery);
 					serviceArray = this.serviceLists;
 					searchQuery = this.searchQuery;
 
 					if(!searchQuery)
 						return this.serviceLists;
 
-					serviceArray = serviceArray.filter(function(item){
-						console.log(item.title);
+					serviceArray = serviceArray.filter(function(serviceLists){
+						if(serviceLists.name.toLowerCase().indexOf(searchQuery)!== -1){
+							console.log('inside if');
+							return serviceLists;
+						}
 					})
 
-				// serviceArray = articles_array.filter(function(item){
-    //             if(item.title.toLowerCase().indexOf(searchString) !== -1){
-    //                 return item;
-	   //              }
-	   //          })
-
-
-
+					return serviceArray;
 				}
 			}
-
-
-
-
 		})
 	</script>	
 </body>
